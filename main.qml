@@ -5,12 +5,18 @@ import "script.js" as Script
 
 ApplicationWindow {
     id: calculator
-    width:329
-    height:275
+    property bool bigsize: false
+    width: bigsize == true ? 329 : 210
+    height:268
+    maximumHeight: 268
+    minimumHeight: 268
+    maximumWidth: bigsize == true ? 329 : 210
+    minimumWidth: bigsize == true ? 329 : 210
     theme {
         accentColor: "#009688"
         primaryColor: "#009688"
     }
+
 
 initialPage: ee  
 Page {
@@ -41,11 +47,11 @@ Page {
     Item {
 
     id:tr
-    x:0
-    y:5
-    width:329
-    height:90
-
+    
+    width: parent.width
+    height:bigsize == true ? 100 : 95;
+    Keys.onEnterPressed:result.text = Script.Evaluer(entry.text)
+    Keys.onReturnPressed:result.text = Script.Evaluer(entry.text)
      View {
         anchors {
             fill: parent
@@ -55,27 +61,28 @@ Page {
 
         TextInput {
             id:entry
+            width:bigsize == true ? 260 : 150
             anchors.left: parent.left
         anchors.top: parent.top
         anchors.margins: 5
-            text:' '
+            text:''
             color:'#757575'
         }
         Text {
         id:result
-            anchors.bottom: parent.bottom
+        anchors.bottom: parent.bottom
         anchors.right: parent.right
-        anchors.margins: 5
+        anchors.margins: 6
             text:' '
             color:'#212121'
-            font.pointSize: 18;
+            font.pointSize: bigsize == true ? 18 : 13;
         }
     }
 }
         Rectangle {
                 
-                 id: pa
-            x:0
+                 id: fn
+            x:bigsize == true ? 205 : 85
             y:110
              width: 125
              height: 200
@@ -90,18 +97,20 @@ Page {
 
                 
                     Button {
-                        text: "DEL"
+                    text: "√"
+                        id:b_sqrt
                         width: units.dp(50)
                         textColor: "white"
                         anchors.horizontalCenter: parent.horizontalCenter
                         MouseArea {
-                            id: ma_del
+                            id: ma_sqrt
                             anchors.fill: parent
 
                             onPressed: {
-                                entry.text = ''
+                                entry.text += 'sqrt('
                             }
                         }
+                        
                     }
                     Button {
                         text: "cos"
@@ -228,17 +237,17 @@ Page {
 
                 
                     Button {
-                        text: "√"
-                        id:b_sqrt
+                        text: 'π'
+                        id:b_pi
                         width: units.dp(50)
-                        textColor: "white"
+                        textColor: 'white'
                         anchors.horizontalCenter: parent.horizontalCenter
                         MouseArea {
-                            id: ma_sqrt
+                            id: ma_pi
                             anchors.fill: parent
 
                             onPressed: {
-                                entry.text += 'sqrt('
+                                entry.text += 'pi'
                             }
                         }
                     }
@@ -273,17 +282,19 @@ Page {
                         }
                     }
                     Button {
-                        text: "π"
-                        id:b_pi
+                        text: "…"
+                        id:b_more
                         width: units.dp(50)
                         textColor: "white"
                         anchors.horizontalCenter: parent.horizontalCenter
                         MouseArea {
-                            id: ma_pi
+                            id: ma_more
                             anchors.fill: parent
 
                             onPressed: {
-                                entry.text += 'pi'
+                                
+                                calculator.bigsize = !calculator.bigsize
+                                
                             }
                         }
                     }
@@ -294,8 +305,8 @@ Page {
 
         Rectangle {
                 
-                 id: page
-            x:125
+                 id: num
+            x:bigsize == true ? 40 : -80
             y:110
              width: 165
              height: 200
@@ -592,7 +603,7 @@ Page {
         Rectangle {
                 
                  id: pag
-            x:290
+            x:0
             y:110
              width: units.dp(50)
              height: 200
@@ -669,8 +680,8 @@ Page {
             }
             ActionButton {
                 id:go
-                x:268
-                y:88
+                x:22
+                y:87
                 width:40
                 height:40
                 iconName: "editor/equal"
@@ -684,5 +695,21 @@ Page {
                             }
             }
 
+            Icon {
+                id:del
+                visible: entry.text=='' ? false : true
+                anchors.top: parent.top
+        		anchors.right: parent.right
+        		anchors.margins:5
+                name: "navigation/arrow_back"
+                MouseArea {
+                            id: ma_del
+                            anchors.fill: parent
+
+                            onPressed: {
+                                entry.text = entry.text.replace(/(\s+)?.$/, '')
+                                                   }
+                            }
+            }
 }
 }
