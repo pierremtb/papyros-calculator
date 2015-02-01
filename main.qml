@@ -6,7 +6,7 @@ import "script.js" as Script
 ApplicationWindow {
     id: calculator
     visible: true
-    property bool bigsize: false
+    property bool bigsize: true
     width: bigsize == true ? 329 : 210
     height:268
     maximumHeight: 268
