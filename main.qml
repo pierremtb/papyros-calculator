@@ -159,7 +159,7 @@ Page {
                     height: 200
 
                  Button {
-                        text: "pow"
+                        text: "^"
                         id:b_pow
                         width: units.dp(50)
                         textColor: "white"
@@ -228,7 +228,7 @@ Page {
 
                 
                     Button {
-                        text: "sqrt"
+                        text: "√"
                         id:b_sqrt
                         width: units.dp(50)
                         textColor: "white"
@@ -273,7 +273,7 @@ Page {
                         }
                     }
                     Button {
-                        text: "pi"
+                        text: "π"
                         id:b_pi
                         width: units.dp(50)
                         textColor: "white"
