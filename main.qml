@@ -2,20 +2,32 @@ import QtQuick 2.2
 import Material 0.1
 import Material.ListItems 0.1 as ListItem
 import "script.js" as Script
+import Qt.labs.settings 1.0
 
 ApplicationWindow {
     id: calculator
     visible: true
+
+    title: 'Calculator'
+    flags: Qt.WindowCloseButtonHint|Qt.WindowMinimizeButtonHint
     property bool bigsize: true
+    property string accentchosen: "#009688"
+
     width: bigsize == true ? 329 : 210
     height:268
     maximumHeight: 268
     minimumHeight: 268
     maximumWidth: bigsize == true ? 329 : 210
     minimumWidth: bigsize == true ? 329 : 210
+     
+
     theme {
-        accentColor: "#009688"
+        accentColor: accentchosen
         primaryColor: "#009688"
+   }
+    
+    Settings {
+        property alias accentchosen: calculator.accentchosen
     }
 
 
@@ -24,6 +36,10 @@ Page {
         id: ee
         title: "Calculator"
         actionBar.hidden: true
+         Component.onCompleted:
+    {
+        entry.forceActiveFocus()
+    }
          actions: [
             Action {
                
@@ -62,12 +78,17 @@ Page {
 
         TextInput {
             id:entry
+            property string varx:''
             width:bigsize == true ? 260 : 150
             anchors.left: parent.left
         anchors.top: parent.top
         anchors.margins: 5
             text:''
             color:'#757575'
+
+            Settings {
+        property alias varx: entry.varx
+    }
         }
         Text {
         id:result
@@ -238,19 +259,24 @@ Page {
 
                 
                     Button {
-                        text: 'π'
-                        id:b_pi
+                        text: "…"
+                        id:b_more
                         width: units.dp(50)
-                        textColor: 'white'
+                        textColor: "white"
                         anchors.horizontalCenter: parent.horizontalCenter
-                        MouseArea {
-                            id: ma_pi
-                            anchors.fill: parent
 
+                         
+
+                        MouseArea {
+                            id: ma_more
+                            anchors.fill: parent
+                            onClicked:PropertyAnimation { target: drawer; properties: "x"; to: bigsize ? 129 : 10; duration: 200 }
                             onPressed: {
-                                entry.text += 'pi'
+                                
+                                
                             }
                         }
+
                     }
                     Button {
                         text: "tan"
@@ -283,19 +309,18 @@ Page {
                         }
                     }
                     Button {
-                        text: "…"
-                        id:b_more
+                        
+                        text: 'π'
+                        id:b_pi
                         width: units.dp(50)
-                        textColor: "white"
+                        textColor: 'white'
                         anchors.horizontalCenter: parent.horizontalCenter
                         MouseArea {
-                            id: ma_more
+                            id: ma_pi
                             anchors.fill: parent
 
                             onPressed: {
-                                
-                                calculator.bigsize = !calculator.bigsize
-                                
+                                entry.text += 'pi'
                             }
                         }
                     }
@@ -543,7 +568,7 @@ Page {
                             anchors.fill: parent
 
                             onPressed: {
-                                entry.text += b_X.text
+                                entry.text += entry.varx
                             }
                         }
                     }
@@ -558,7 +583,8 @@ Page {
                             anchors.fill: parent
 
                             onPressed: {
-                                entry.text += b_attrX.text
+                                result.text = Script.Evaluer(entry.text)
+                            	entry.varx = result.text
                             }
                         }
                     }
@@ -713,4 +739,114 @@ Page {
                             }
             }
 }
+
+Rectangle {
+        id:drawer
+        color:'white'
+        width:200
+        x:329
+        anchors {
+                top: parent.top
+                bottom: parent.bottom
+                    }
+            
+        
+         View {
+        anchors {
+            fill: parent
+            margins: units.dp(0)
+        }
+
+        elevation: 1
+
+        Column {
+            anchors.fill: parent
+
+            ListItem.Header {
+                text: "Settings"
+                
+            }
+
+            ListItem.Standard {
+                text: "Show numbers"
+                Switch {
+                        id:sw_bigsize
+                        checked: true
+                        darkBackground: false
+                        anchors {
+                            top: parent.top
+                            right: parent.right
+                            topMargin:10
+                            rightMargin:20
+                    }
+                    }
+            }
+
+            ListItem.SimpleMenu {
+                id:themechooser
+                text: 'ThemeChooser'
+                model: ["#F44336", "#FF5722", "#009688", '#0091EA']
+Rectangle {
+                    width:30
+                    height:30
+                    radius: width*0.5
+                    color:themechooser.model[themechooser.selectedIndex]
+                    anchors {
+                            top: parent.top
+                            right: parent.right
+                            topMargin:15
+                            rightMargin:20
+                    }
+                    }
+
+                }
+            }
+Item {
+             
+    anchors {
+        bottom: parent.bottom
+        left: parent.left
+        right: parent.right
+        bottomMargin:25
+        }
+        height:30
+        Button {
+            text: "Save"
+            backgroundColor: Theme.accentColor
+            elevation: 1
+            x:30
+            MouseArea {
+                anchors.fill: parent
+                onClicked:PropertyAnimation { target: drawer; properties: "x"; to: 329; duration: 200 }
+                onPressed: {
+                    calculator.accentchosen = themechooser.model[themechooser.selectedIndex]
+                    calculator.bigsize = sw_bigsize.checked
+                   
+                }
+            }
+        }
+        Button {
+            text: "Abort"
+            x:103
+            elevation: 1
+            textColor: Theme.accentColor
+            MouseArea {
+                anchors.fill: parent
+                onClicked:PropertyAnimation { target: drawer; properties: "x"; to: 329; duration: 200 }
+                onPressed: {
+                    sw_bigsize.checked = calculator.bigsize
+                    
+
+                }
+            }
+        }
 }
+        }
+
+        
+    }
+
+}
+
+
+
