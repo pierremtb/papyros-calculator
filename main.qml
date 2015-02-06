@@ -3,6 +3,7 @@ import Material 0.1
 import Material.ListItems 0.1 as ListItem
 import "script.js" as Script
 import Qt.labs.settings 1.0
+import QtGraphicalEffects 1.0
 
 ApplicationWindow {
     id: calculator
@@ -31,41 +32,6 @@ ApplicationWindow {
         Component.onCompleted:
         {
         entry.forceActiveFocus()
-        }
-        Item {
-            id:tr 
-            width: parent.width
-            height:bigsize == true ? 100 : 95;
-            Keys.onEnterPressed:result.text = Script.Evaluer(entry.text)
-            Keys.onReturnPressed:result.text = Script.Evaluer(entry.text)
-            View {
-                anchors {
-                    fill: parent
-                    margins: units.dp(6)
-                }
-                TextInput {
-                    id:entry
-                    property string varx:''
-                    width:bigsize == true ? 260 : 150
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-                    anchors.margins: 5
-                    text:''
-                    color:'#757575'
-                    Settings {
-                        property alias varx: entry.varx
-                    }
-                }
-                Text {
-                    id:result
-                    anchors.bottom: parent.bottom
-                    anchors.right: parent.right
-                    anchors.margins: 6
-                    text:' '
-                    color:'#212121'
-                    font.pointSize: bigsize == true ? 18 : 13;
-                }
-            }
         }
         Rectangle {
             id: fn
@@ -586,6 +552,45 @@ ApplicationWindow {
                             entry.text += '/'
                         }
                     }
+                }
+            }
+        }
+        Item {
+            id:tr 
+            width: parent.width
+            height: 110
+            Keys.onEnterPressed:result.text = Script.Evaluer(entry.text)
+            Keys.onReturnPressed:result.text = Script.Evaluer(entry.text)
+            View {
+                elevation:1
+                anchors {
+                    fill: parent
+                }
+                TextInput {
+                    id:entry
+                    property string varx:''
+                    selectByMouse: true
+                    selectionColor : 'lightgray'
+                    width:bigsize == true ? 265 : 150
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.margins: 5
+                    text:''
+                    font.pointSize: entry.text.length < 20 ? 18 : 13
+                    color:'#757575'
+                    Settings {
+                        property alias varx: entry.varx
+                    }
+                }
+                Text {
+                    id:result
+                    anchors.bottom: parent.bottom
+                    anchors.right: parent.right
+                    anchors.margins: 6
+                    anchors.bottomMargin: bigsize ? 10 : 30
+                    text:' '
+                    color:'#212121'
+                    font.pointSize: bigsize && result.text.length > 15 ? 17 : bigsize && result.text.length > 8 ? 20 : bigsize ? 26 : !bigsize && result.text.length > 10 ? 13 : 20
                 }
             }
         }
