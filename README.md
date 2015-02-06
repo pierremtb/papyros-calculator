@@ -1,5 +1,5 @@
 # papyros-calculator
-Calculator application for Papyros
+Calculator application for Papyros, written in QML/JavaScript
 
 How to build
 - Be sure you have set up qt5 and dependencies, qml-extras, qml-material (see https://github.com/papyros/qml-material)
