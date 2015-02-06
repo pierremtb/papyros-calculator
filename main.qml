@@ -375,252 +375,220 @@ ApplicationWindow {
                         anchors.fill: parent
                         onPressed: {
                         entry.text += b_2.text
-                    }
-                            }
-                        }
-                    Button {
-                            text: "."
-                            id:b_dot
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_dot
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += b_dot.text
-                                }
-                            }
-                        }
-                    }
-
-                     Column {
-                         x: 55
-                        y: 0
-                        width: 100
-                        height: 100
-
-                    
-                        Button {
-                            text: "9"
-                            id:b_9
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_9
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += b_9.text
-                                }
-                            }
-                        }
-                        Button {
-                            text: "6"
-                            id:b_6
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_6
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += b_6.text
-                                }
-                            }
-                        }
-                        Button {
-                            text: "3"
-                            id:b_3
-
-                            width: units.dp(50)
-                           textColor: "#9c9d9e"
-
-                            anchors.horizontalCenter: parent.horizontalCenter
-
-                            MouseArea {
-                                id: ma_3
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += b_3.text
-                                }
-                            }
-                        }
-                    Button {
-                            text: ","
-                            id:b_coma
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_coma
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += b_coma.text
-                                }
-                            }
-                        }
-                    }
-                    Column {
-                         x: 95
-                        y: 0
-                        width: 100
-                        height: 100
-
-                    
-                        Button {
-                            text: "X"
-                            id:b_X
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_X
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += entry.varx
-                                }
-                            }
-                        }
-                        Button {
-                            text: "->X"
-                            id:b_attrX
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_attrX
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    result.text = Script.Evaluer(entry.text)
-                                	entry.varx = result.text
-                                }
-                            }
-                        }
-                        Button {
-                            text: "("
-                            id:b_parleft
-
-                            width: units.dp(50)
-                           textColor: "#9c9d9e"
-
-                            anchors.horizontalCenter: parent.horizontalCenter
-
-                            MouseArea {
-                                id: m_parleft
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += b_parleft.text
-                                }
-                            }
-                        }
-
-                    Button {
-                            text: ")"
-                            id:b_parright
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_parright
-
-
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += b_parright.text
-                                }
-                            }
                         }
                     }
                 }
-
-            Rectangle {
-                    
-                     id: pag
-                x:0
-                y:110
-                 width: units.dp(50)
-                 height: 200
-
-                color: "#646264"
+                Button {
+                    text: "."
+                    id:b_dot
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_dot
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_dot.text
+                        }
+                    }
+                }
+            }
             Column {
-                         x: 7
-                        y: 0
-                        width: 30
-                        height: 100
-
-                    
-                        Button {
-                            text: "+"
-                            id:b_plus
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_plus
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += b_plus.text
-                                }
-                            }
-                        }
-                        Button {
-                            text: "-"
-                            id:b_minus
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_minus
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += b_minus.text
-                                }
-                            }
-                        }
-                        Button {
-                            text: "×"
-                            id:b_cross
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_cross
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += '*'
-                                }
-                            }
-                        }
-                    Button {
-                            text: "÷"
-                            id:b_div
-                            width: units.dp(50)
-                            textColor: "#9c9d9e"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            MouseArea {
-                                id: ma_div
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text += '/'
-                                }
-                            }
+                x: 55
+                y: 0
+                width: 100
+                height: 100
+                Button {
+                    text: "9"
+                    id:b_9
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_9
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_9.text
                         }
                     }
                 }
+                Button {
+                    text: "6"
+                    id:b_6
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_6
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_6.text
+                        }
+                    }
+                }
+                Button {
+                    text: "3"
+                    id:b_3
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_3
+                        anchors.fill: parent
+                        onPressed: {
+                        entry.text += b_3.text
+                        }
+                    }
+                }
+                Button {
+                    text: ","
+                    id:b_coma
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_coma
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_coma.text
+                        }
+                    }
+                }
+            }
+            Column {
+                x: 95
+                y: 0
+                width: 100
+                height: 100
+                Button {
+                    text: "X"
+                    id:b_X
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_X
+                        anchors.fill: parent
+                        onPressed: {
+                        entry.text += entry.varx
+                        }
+                    }
+                }
+                Button {
+                    text: "->X"
+                    id:b_attrX
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_attrX
+                        anchors.fill: parent
+                        onPressed: {
+                            result.text = Script.Evaluer(entry.text)
+                           	entry.varx = result.text
+                        }
+                    }
+                }
+                Button {
+                    text: "("
+                    id:b_parleft
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: m_parleft
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_parleft.text
+                        }
+                    }
+                }
+                Button {
+                    text: ")"
+                    id:b_parright
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_parright
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_parright.text
+                        }
+                    }
+                }
+            }
+        }
+        Rectangle {
+            id: pag
+            x:0
+            y:110
+            width: units.dp(50)
+            height: 200
+            color: "#646264"
+            Column {
+                x: 7
+                y: 0
+                width: 30
+                height: 100
+                Button {
+                    text: "+"
+                    id:b_plus
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_plus
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_plus.text
+                        }
+                    }
+                }
+                Button {
+                    text: "-"
+                    id:b_minus
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_minus
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_minus.text
+                        }
+                    }
+                }
+                Button {
+                    text: "×"
+                    id:b_cross
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_cross
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += '*'
+                        }
+                    }
+                }
+                Button {
+                    text: "÷"
+                    id:b_div
+                    width: units.dp(50)
+                    textColor: "#9c9d9e"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_div
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += '/'
+                        }
+                    }
+                }
+            }
+        }
                 ActionButton {
                     id:go
                     x:22
