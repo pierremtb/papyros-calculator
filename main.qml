@@ -5,33 +5,33 @@ import "script.js" as Script
 import Qt.labs.settings 1.0
 
 ApplicationWindow {
-        id: calculator
-        visible: true
-        title: 'Calculator'
-        flags: Qt.WindowCloseButtonHint|Qt.WindowMinimizeButtonHint
-        property bool bigsize: true
-        property string accentchosen: "#009688"
-        width: bigsize == true ? 329 : 210
-        height:268
-        maximumHeight: 268
-        minimumHeight: 268
-        maximumWidth: bigsize == true ? 329 : 210
-        minimumWidth: bigsize == true ? 329 : 210
-        theme {
-            accentColor: accentchosen
-            primaryColor: "#009688"
-        }        
-        Settings {
-            property alias accentchosen: calculator.accentchosen
+    id: calculator
+    visible: true
+    title: 'Calculator'
+    flags: Qt.WindowCloseButtonHint|Qt.WindowMinimizeButtonHint
+    property bool bigsize: true
+    property string accentchosen: "#009688"
+    width: bigsize == true ? 329 : 210
+    height:268
+    maximumHeight: 268
+    minimumHeight: 268
+    maximumWidth: bigsize == true ? 329 : 210
+    minimumWidth: bigsize == true ? 329 : 210
+    theme {
+        accentColor: accentchosen
+        primaryColor: "#009688"
+    }        
+    Settings {
+        property alias accentchosen: calculator.accentchosen
+    }
+    initialPage: ee  
+    Page {
+        id: ee
+        actionBar.hidden: true
+        Component.onCompleted:
+        {
+        entry.forceActiveFocus()
         }
-        initialPage: ee  
-        Page {
-            id: ee
-            actionBar.hidden: true
-            Component.onCompleted:
-            {
-            entry.forceActiveFocus()
-            }
         Item {
             id:tr 
             width: parent.width
@@ -589,88 +589,77 @@ ApplicationWindow {
                 }
             }
         }
-                ActionButton {
-                    id:go
-                    x:22
-                    y:87
-                    width:40
-                    height:40
-                    iconName: "editor/equal"
-                    MouseArea {
-                                id: ma_go
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    result.text = Script.Evaluer(entry.text)
-                                                       }
-                                }
+        ActionButton {
+            id:go
+            x:22
+            y:87
+            width:40
+            height:40
+            iconName: "editor/equal"
+            MouseArea {
+                id: ma_go
+                anchors.fill: parent
+                onPressed: {
+                    result.text = Script.Evaluer(entry.text)
                 }
-
-                Icon {
-                    id:del
-                    visible: entry.text=='' ? false : true
-                    anchors.top: parent.top
-            		anchors.right: parent.right
-            		anchors.margins:5
-                    name: "navigation/arrow_back"
-                    MouseArea {
-                                id: ma_del
-                                anchors.fill: parent
-
-                                onPressed: {
-                                    entry.text = entry.text.replace(/(\s+)?.$/, '')
-                                                       }
-                                }
+            }
+        }
+        Icon {
+            id:del
+            visible: entry.text=='' ? false : true
+            anchors.top: parent.top
+      		anchors.right: parent.right
+       		anchors.margins:5
+            name: "navigation/arrow_back"
+            MouseArea {
+                id: ma_del
+                anchors.fill: parent
+                onPressed: {
+                    entry.text = entry.text.replace(/(\s+)?.$/, '')
                 }
+            }
+        }
     }
 
     Rectangle {
-            id:drawer
-            color:'white'
-            width:200
-            x:329
-            anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                        }
-                
-            
-             View {
+        id:drawer
+        color:'white'
+        width:200
+        x:329
+        anchors {
+                top: parent.top
+                bottom: parent.bottom
+        }  
+        View {
             anchors {
                 fill: parent
                 margins: units.dp(0)
             }
-
             elevation: 1
-
             Column {
                 anchors.fill: parent
-
                 ListItem.Header {
-                    text: "Settings"
-                    
+                    text: "Settings"                 
                 }
-
                 ListItem.Standard {
                     text: "Show numbers"
                     Switch {
-                            id:sw_bigsize
-                            checked: true
-                            darkBackground: false
-                            anchors {
-                                top: parent.top
-                                right: parent.right
-                                topMargin:10
-                                rightMargin:20
+                        id:sw_bigsize
+                        checked: true
+                        darkBackground: false
+                        anchors {
+                            top: parent.top
+                            right: parent.right
+                            topMargin:10
+                            rightMargin:20
                         }
-                        }
+                    }
                 }
-
                 ListItem.SimpleMenu {
                     id:themechooser
                     text: 'ThemeChooser'
                     model: ["#F44336", "#FF5722", "#009688", '#0091EA']
-    Rectangle {
+                    Rectangle {
                         width:30
                         height:30
                         radius: width*0.5
@@ -681,55 +670,47 @@ ApplicationWindow {
                                 topMargin:15
                                 rightMargin:20
                         }
+                    }
+                }
+            }
+            Item {           
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                    bottomMargin:25
+                }
+                height:30
+                Button {
+                    text: "Save"
+                    backgroundColor: Theme.accentColor
+                    elevation: 1
+                    x:30
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked:PropertyAnimation { target: drawer; properties: "x"; to: 329; duration: 200 }
+                        onPressed: {
+                            calculator.accentchosen = themechooser.model[themechooser.selectedIndex]
+                            calculator.bigsize = sw_bigsize.checked        
                         }
-
                     }
                 }
-    Item {
-                 
-        anchors {
-            bottom: parent.bottom
-            left: parent.left
-            right: parent.right
-            bottomMargin:25
-            }
-            height:30
-            Button {
-                text: "Save"
-                backgroundColor: Theme.accentColor
-                elevation: 1
-                x:30
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked:PropertyAnimation { target: drawer; properties: "x"; to: 329; duration: 200 }
-                    onPressed: {
-                        calculator.accentchosen = themechooser.model[themechooser.selectedIndex]
-                        calculator.bigsize = sw_bigsize.checked
-                       
+                Button {
+                    text: "Abort"
+                    x:103
+                    elevation: 1
+                    textColor: Theme.accentColor
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked:PropertyAnimation { target: drawer; properties: "x"; to: 329; duration: 200 }
+                        onPressed: {
+                            sw_bigsize.checked = calculator.bigsize
+                        }
                     }
                 }
             }
-            Button {
-                text: "Abort"
-                x:103
-                elevation: 1
-                textColor: Theme.accentColor
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked:PropertyAnimation { target: drawer; properties: "x"; to: 329; duration: 200 }
-                    onPressed: {
-                        sw_bigsize.checked = calculator.bigsize
-                        
-
-                    }
-                }
-            }
-    }
-            }
-
-            
         }
-
+    }
 }
 
 
