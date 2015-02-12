@@ -600,7 +600,7 @@ ApplicationWindow {
             y:87
             width:40
             height:40
-            iconName: "editor/equal"
+            iconName: "extra/equal"
             MouseArea {
                 id: ma_go
                 anchors.fill: parent
