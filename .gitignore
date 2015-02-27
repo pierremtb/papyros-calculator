@@ -1,3 +1,4 @@
 *.o
 *.qmlproject.user
 Makefile
+qrc_papyros-calculator.cpp
