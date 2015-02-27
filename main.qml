@@ -33,9 +33,343 @@ ApplicationWindow {
         {
         entry.forceActiveFocus()
         }
+        
+        Rectangle {
+            id: num
+            x:bigsize == true ? 125 : 2
+             Behavior on x {
+                NumberAnimation { duration: 200 }
+            }
+            y:110
+            width: 165
+            height: 200
+            color: "#444345"
+            Column {
+                x:-5
+                y:0
+                width: 50
+                height: 200
+                Button {
+                    text: "7"
+                    id:b_7
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_7
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_7.text
+                        }
+                    }
+                }
+                Button {
+                    text: "4"
+                    id:b_4
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_4
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_4.text
+                        }
+                    }
+                }
+                Button {
+                    text: "1"
+                    id:b_1
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_1
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_1.text
+                        }
+                    }
+                }
+                Button {
+                    text: "0"
+                    id:b_0
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_0
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_0.text
+                        }
+                    }
+                }
+            }
+            Column {
+                x:38
+                y:0
+                width: 50
+                height: 200
+                Button {
+                    text: "8"
+                    id:b_8
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_8
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_8.text
+                        }
+                    }
+                }
+                Button {
+                    text: "5"
+                    id:b_5
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_5
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_5.text
+                        }
+                    }
+                }
+                Button {
+                    text: "2"
+                    id:b_2
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_2
+                        anchors.fill: parent
+                        onPressed: {
+                        entry.text += b_2.text
+                        }
+                    }
+                }
+                Button {
+                    text: "."
+                    id:b_dot
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_dot
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_dot.text
+                        }
+                    }
+                }
+            }
+            Column {
+                x: 55
+                y: 0
+                width: 100
+                height: 100
+                Button {
+                    text: "9"
+                    id:b_9
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_9
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_9.text
+                        }
+                    }
+                }
+                Button {
+                    text: "6"
+                    id:b_6
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_6
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_6.text
+                        }
+                    }
+                }
+                Button {
+                    text: "3"
+                    id:b_3
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_3
+                        anchors.fill: parent
+                        onPressed: {
+                        entry.text += b_3.text
+                        }
+                    }
+                }
+                Button {
+                    text: "="
+                    id:b_go
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_gob
+                        anchors.fill: parent
+                        onPressed: {
+                            result.text = Script.Evaluer(entry.text)
+                        }
+                    }
+                }
+            }
+            Column {
+                x: 95
+                y: 0
+                width: 100
+                height: 100
+                Button {
+                    text: "X"
+                    id:b_X
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_X
+                        anchors.fill: parent
+                        onPressed: {
+                        entry.text += entry.varx
+                        }
+                    }
+                }
+                Button {
+                    text: "->X"
+                    id:b_attrX
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_attrX
+                        anchors.fill: parent
+                        onPressed: {
+                            result.text = Script.Evaluer(entry.text)
+                           	entry.varx = result.text
+                        }
+                    }
+                }
+                Button {
+                    text: "("
+                    id:b_parleft
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: m_parleft
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_parleft.text
+                        }
+                    }
+                }
+                Button {
+                    text: ")"
+                    id:b_parright
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_parright
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_parright.text
+                        }
+                    }
+                }
+            }
+        }
+        Rectangle {
+            id: pag
+            x:bigsize ? 125+165 : 166
+            Behavior on x {
+                NumberAnimation { duration: 200 }
+            }
+            y:110
+            width: units.dp(50)
+            height: 200
+            color: "#646264"
+            Column {
+                x: 7
+                y: 0
+                width: 30
+                height: 100
+                Button {
+                    text: "+"
+                    id:b_plus
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_plus
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_plus.text
+                        }
+                    }
+                }
+                Button {
+                    text: "-"
+                    id:b_minus
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_minus
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += b_minus.text
+                        }
+                    }
+                }
+                Button {
+                    text: "×"
+                    id:b_cross
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_cross
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += '*'
+                        }
+                    }
+                }
+                Button {
+                    text: "÷"
+                    id:b_div
+                    width: units.dp(50)
+                    textColor: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    MouseArea {
+                        id: ma_div
+                        anchors.fill: parent
+                        onPressed: {
+                            entry.text += '/'
+                        }
+                    }
+                }
+            }
+        }
         Rectangle {
             id: fn
-            x:bigsize == true ? 205 : 85
+            x:0
             y:110
             width: 125
             height: 200
@@ -171,15 +505,17 @@ ApplicationWindow {
                 width: 50
                 height: 200
                 Button {
-                    text: "…"
-                    id:b_more
+                    text: ","
+                    id:b_coma
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
                     MouseArea {
-                        id: ma_more
+                        id: ma_com
                         anchors.fill: parent
-                        onClicked:PropertyAnimation { target: drawer; properties: "x"; to: bigsize ? 129 : 10; duration: 200 }
+                        onPressed: {
+                            entry.text += b_coma.text
+                        }
                     }
                 }
                 Button {
@@ -228,340 +564,30 @@ ApplicationWindow {
             }
 
         }
-        Rectangle {
-            id: num
-            x:bigsize == true ? 40 : -80
-            y:110
-            width: 165
-            height: 200
-            color: "#444345"
-            Column {
-                x:-5
-                y:0
-                width: 50
-                height: 200
-                Button {
-                    text: "7"
-                    id:b_7
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_7
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_7.text
-                        }
-                    }
-                }
-                Button {
-                    text: "4"
-                    id:b_4
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_4
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_4.text
-                        }
-                    }
-                }
-                Button {
-                    text: "1"
-                    id:b_1
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_1
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_1.text
-                        }
-                    }
-                }
-                Button {
-                    text: "0"
-                    id:b_0
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_0
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_0.text
-                        }
-                    }
-                }
-            }
-            Column {
-                x:38
-                y:0
-                width: 50
-                height: 200
-                Button {
-                    text: "8"
-                    id:b_8
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_8
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_8.text
-                        }
-                    }
-                }
-                Button {
-                    text: "5"
-                    id:b_5
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_5
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_5.text
-                        }
-                    }
-                }
-                Button {
-                    text: "2"
-                    id:b_2
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_2
-                        anchors.fill: parent
-                        onPressed: {
-                        entry.text += b_2.text
-                        }
-                    }
-                }
-                Button {
-                    text: "."
-                    id:b_dot
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_dot
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_dot.text
-                        }
-                    }
-                }
-            }
-            Column {
-                x: 55
-                y: 0
-                width: 100
-                height: 100
-                Button {
-                    text: "9"
-                    id:b_9
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_9
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_9.text
-                        }
-                    }
-                }
-                Button {
-                    text: "6"
-                    id:b_6
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_6
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_6.text
-                        }
-                    }
-                }
-                Button {
-                    text: "3"
-                    id:b_3
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_3
-                        anchors.fill: parent
-                        onPressed: {
-                        entry.text += b_3.text
-                        }
-                    }
-                }
-                Button {
-                    text: ","
-                    id:b_coma
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_coma
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_coma.text
-                        }
-                    }
-                }
-            }
-            Column {
-                x: 95
-                y: 0
-                width: 100
-                height: 100
-                Button {
-                    text: "X"
-                    id:b_X
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_X
-                        anchors.fill: parent
-                        onPressed: {
-                        entry.text += entry.varx
-                        }
-                    }
-                }
-                Button {
-                    text: "->X"
-                    id:b_attrX
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_attrX
-                        anchors.fill: parent
-                        onPressed: {
-                            result.text = Script.Evaluer(entry.text)
-                           	entry.varx = result.text
-                        }
-                    }
-                }
-                Button {
-                    text: "("
-                    id:b_parleft
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: m_parleft
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_parleft.text
-                        }
-                    }
-                }
-                Button {
-                    text: ")"
-                    id:b_parright
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_parright
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_parright.text
-                        }
-                    }
-                }
-            }
-        }
-        Rectangle {
-            id: pag
-            x:0
-            y:110
-            width: units.dp(50)
-            height: 200
-            color: "#646264"
-            Column {
-                x: 7
-                y: 0
-                width: 30
-                height: 100
-                Button {
-                    text: "+"
-                    id:b_plus
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_plus
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_plus.text
-                        }
-                    }
-                }
-                Button {
-                    text: "-"
-                    id:b_minus
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_minus
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_minus.text
-                        }
-                    }
-                }
-                Button {
-                    text: "×"
-                    id:b_cross
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_cross
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += '*'
-                        }
-                    }
-                }
-                Button {
-                    text: "÷"
-                    id:b_div
-                    width: units.dp(50)
-                    textColor: "#9c9d9e"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_div
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += '/'
-                        }
-                    }
-                }
-            }
-        }
         Item {
             id:tr 
             width: parent.width
             height: 110
             Keys.onEnterPressed:result.text = Script.Evaluer(entry.text)
             Keys.onReturnPressed:result.text = Script.Evaluer(entry.text)
+            Ink {
+                id: mouseArea
+                anchors.fill: parent
+                color: Qt.rgba(0,0,0,0)
+                opacity:1
+                Behavior on opacity {
+                    NumberAnimation { duration: 200 }
+                }
+                middleSize:calculator.width * 4
+                Connections {
+                    target: elev
+                    onPressed: console.log(" ")
+                    onCanceled: mouseArea.onCanceled()
+                    onReleased: mouseArea.onReleased(mouse)
+                }
+            }
             View {
+                id:elev
                 elevation:1
                 anchors {
                     fill: parent
@@ -587,25 +613,10 @@ ApplicationWindow {
                     anchors.bottom: parent.bottom
                     anchors.right: parent.right
                     anchors.margins: 6
-                    anchors.bottomMargin: bigsize ? 10 : 30
+                    anchors.bottomMargin: 10
                     text:' '
                     color:'#212121'
                     font.pointSize: bigsize && result.text.length > 15 ? 17 : bigsize && result.text.length > 8 ? 20 : bigsize ? 26 : !bigsize && result.text.length > 10 ? 13 : 20
-                }
-            }
-        }
-        ActionButton {
-            id:go
-            x:22
-            y:87
-            width:40
-            height:40
-            iconName: "extra/equal"
-            MouseArea {
-                id: ma_go
-                anchors.fill: parent
-                onPressed: {
-                    result.text = Script.Evaluer(entry.text)
                 }
             }
         }
@@ -615,12 +626,54 @@ ApplicationWindow {
             anchors.top: parent.top
       		anchors.right: parent.right
        		anchors.margins:5
+            anchors.rightMargin:30
             name: "navigation/arrow_back"
             MouseArea {
+                 Timer {
+                     id: timer1
+                     interval: 400; running: false; repeat: false
+                     onTriggered: {
+                        mouseArea.opacity = 0;
+                    }
+                 }
+                Timer {
+                     id: timer2
+                     interval: 1000; running: false; repeat: false
+                     onTriggered: {
+                        mouseArea.currentCircle.removeCircle();
+                    }
+                 }
                 id: ma_del
                 anchors.fill: parent
                 onPressed: {
-                    entry.text = entry.text.replace(/(\s+)?.$/, '')
+                     entry.text = entry.text.replace(/(\s+)?.$/, '')
+                }
+                onDoubleClicked: {
+                    mouseArea.opacity = 1;
+                    mouseArea.color = '#4CAF50';
+                    mouseArea.createTapCircle(calculator.width,0);
+                    entry.text = '';
+                    result.text = '';
+                    timer1.running = true;
+                    timer2.running = true;
+                }
+
+            }
+        }
+        Icon {
+            id:menu
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.margins:5
+            name: "navigation/menu"
+            MouseArea {
+                id: ma_menu
+                anchors.fill: parent
+                onPressed: 
+                {
+                    drawer.x = bigsize ? 129 : 10
+                    shadow_drawer.opacity = 1
+
                 }
             }
         }
@@ -631,6 +684,10 @@ ApplicationWindow {
         color:'white'
         width:200
         x:329
+        z:2
+        Behavior on x {
+            NumberAnimation { duration: 200 }
+        }
         anchors {
                 top: parent.top
                 bottom: parent.bottom
@@ -660,23 +717,30 @@ ApplicationWindow {
                         }
                     }
                 }
-                ListItem.SimpleMenu {
+                ListItem.Standard {
                     id:themechooser
-                    text: 'ThemeChooser'
-                    model: ["#F44336", "#FF5722", "#009688", '#0091EA']
+                    text: 'Accent Chooser'
                     Rectangle {
                         width:30
                         height:30
+                        id:accentcolor_sample
                         radius: width*0.5
-                        color:themechooser.model[themechooser.selectedIndex]
+                        color:Theme.accentColor
                         anchors {
                                 top: parent.top
                                 right: parent.right
-                                topMargin:15
+                                topMargin:6
                                 rightMargin:20
                         }
+                        MouseArea {
+                        anchors.fill: parent
+                        onPressed: accent_chooser_palette.open(accentcolor_sample, units.dp(4), units.dp(-4))
+                    }
                     }
                 }
+                AccentPaletteDropdown {
+                id:accent_chooser_palette
+           }
             }
             Item {           
                 anchors {
@@ -693,9 +757,12 @@ ApplicationWindow {
                     x:30
                     MouseArea {
                         anchors.fill: parent
-                        onClicked:PropertyAnimation { target: drawer; properties: "x"; to: 329; duration: 200 }
+                        onClicked: {
+                            drawer.x = 329
+                            shadow_drawer.opacity = 0
+                        }
                         onPressed: {
-                            calculator.accentchosen = themechooser.model[themechooser.selectedIndex]
+                            calculator.accentchosen = accentcolor_sample.color
                             calculator.bigsize = sw_bigsize.checked        
                         }
                     }
@@ -707,13 +774,27 @@ ApplicationWindow {
                     textColor: Theme.accentColor
                     MouseArea {
                         anchors.fill: parent
-                        onClicked:PropertyAnimation { target: drawer; properties: "x"; to: 329; duration: 200 }
+                        onClicked: {
+                            drawer.x = 329
+                            shadow_drawer.opacity = 0
+                        }
                         onPressed: {
                             sw_bigsize.checked = calculator.bigsize
                         }
                     }
                 }
             }
+        }
+    }
+    Rectangle {
+        id: shadow_drawer
+        width:calculator.width
+        height:calculator.height
+        color: Qt.rgba(0.1, 0.1, 0.1, 0.5)
+        opacity: 0
+        z:1
+        Behavior on opacity {
+            NumberAnimation { duration: 200 }
         }
     }
 }

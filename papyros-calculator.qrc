@@ -4,6 +4,7 @@
 <qresource>
 	<file>main.qml</file>
 	<file>script.js</file>
+	<file>AccentPaletteDropdown.qml</file>
 </qresource>
 
 </RCC>
