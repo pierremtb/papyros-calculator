@@ -10,4 +10,9 @@ RESOURCES += papyros-calculator.qrc
 
 target.path = /usr/bin
 
+desktop.files = papyros-calculator.desktop
+desktop.path = /usr/share/applications
+
+INSTALLS += target desktop
+
 

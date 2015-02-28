@@ -12,18 +12,19 @@ ApplicationWindow {
     flags: Qt.WindowCloseButtonHint|Qt.WindowMinimizeButtonHint
     property bool bigsize: true
     property string accentchosen: "#009688"
-    width: bigsize == true ? 329 : 210
-    height:268
-    maximumHeight: 268
-    minimumHeight: 268
-    maximumWidth: bigsize == true ? 329 : 210
-    minimumWidth: bigsize == true ? 329 : 210
+    width: bigsize ? 329 : 210
+    height:bigsize ? 268 : 253
+    maximumHeight: bigsize ? 268 : 253
+    minimumHeight: bigsize ? 268 : 253
+    maximumWidth: bigsize ? 329 : 210
+    minimumWidth: bigsize ? 329 : 210
     theme {
         accentColor: accentchosen
         primaryColor: "#009688"
     }        
     Settings {
         property alias accentchosen: calculator.accentchosen
+        property alias bigsize: calculator.bigsize
     }
     initialPage: ee  
     Page {
@@ -40,7 +41,7 @@ ApplicationWindow {
              Behavior on x {
                 NumberAnimation { duration: 200 }
             }
-            y:110
+            y:tr.height
             width: 165
             height: 200
             color: "#444345"
@@ -300,7 +301,7 @@ ApplicationWindow {
             Behavior on x {
                 NumberAnimation { duration: 200 }
             }
-            y:110
+            y:tr.height
             width: units.dp(50)
             height: 200
             color: "#646264"
@@ -370,7 +371,7 @@ ApplicationWindow {
         Rectangle {
             id: fn
             x:0
-            y:110
+            y:tr.height
             width: 125
             height: 200
             color: Theme.accentColor
@@ -529,7 +530,7 @@ ApplicationWindow {
                         anchors.fill: parent
                         onPressed: {
                             entry.text += 'tan('
-                        }
+ 1                        }
                     }
                 }
                 Button {
@@ -567,7 +568,10 @@ ApplicationWindow {
         Item {
             id:tr 
             width: parent.width
-            height: 110
+            height: bigsize ? 110 : 95
+            Behavior on height {
+                    NumberAnimation { duration: 200 }
+                }
             Keys.onEnterPressed:result.text = Script.Evaluer(entry.text)
             Keys.onReturnPressed:result.text = Script.Evaluer(entry.text)
             Ink {
@@ -633,6 +637,8 @@ ApplicationWindow {
                      id: timer1
                      interval: 400; running: false; repeat: false
                      onTriggered: {
+                        entry.text = '';
+                        result.text = '';
                         mouseArea.opacity = 0;
                     }
                  }
@@ -641,7 +647,7 @@ ApplicationWindow {
                      interval: 1000; running: false; repeat: false
                      onTriggered: {
                         mouseArea.currentCircle.removeCircle();
-                    }
+                }
                  }
                 id: ma_del
                 anchors.fill: parent
@@ -652,8 +658,6 @@ ApplicationWindow {
                     mouseArea.opacity = 1;
                     mouseArea.color = '#4CAF50';
                     mouseArea.createTapCircle(calculator.width,0);
-                    entry.text = '';
-                    result.text = '';
                     timer1.running = true;
                     timer2.running = true;
                 }
@@ -707,7 +711,7 @@ ApplicationWindow {
                     text: "Show numbers"
                     Switch {
                         id:sw_bigsize
-                        checked: true
+                        checked: calculator.bigsize
                         darkBackground: false
                         anchors {
                             top: parent.top
@@ -720,6 +724,10 @@ ApplicationWindow {
                 ListItem.Standard {
                     id:themechooser
                     text: 'Accent Chooser'
+                    MouseArea {
+                        anchors.fill: parent
+                        onPressed: accent_chooser_palette.open(accentcolor_sample, units.dp(4), units.dp(-24))
+                    }
                     Rectangle {
                         width:30
                         height:30
@@ -734,7 +742,7 @@ ApplicationWindow {
                         }
                         MouseArea {
                         anchors.fill: parent
-                        onPressed: accent_chooser_palette.open(accentcolor_sample, units.dp(4), units.dp(-4))
+                        onPressed: accent_chooser_palette.open(accentcolor_sample, units.dp(4), units.dp(-24))
                     }
                     }
                 }
