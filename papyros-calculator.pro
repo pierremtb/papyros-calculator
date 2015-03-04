@@ -6,7 +6,8 @@ SOURCES += main.cpp
 OTHER_FILES = README.md
 
 RESOURCES += papyros-calculator.qrc
-
+ 
+CONFIG += staticlib
 
 target.path = /usr/bin
 

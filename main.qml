@@ -56,13 +56,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_7
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_7.text
                         }
-                    }
                 }
                 Button {
                     text: "4"
@@ -70,12 +66,8 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_4
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_4.text
-                        }
                     }
                 }
                 Button {
@@ -84,13 +76,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_1
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_1.text
                         }
-                    }
                 }
                 Button {
                     text: "0"
@@ -98,13 +86,10 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_0
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_0.text
                         }
-                    }
+                    
                 }
             }
             Column {
@@ -118,13 +103,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_8
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_8.text
                         }
-                    }
                 }
                 Button {
                     text: "5"
@@ -132,13 +113,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_5
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_5.text
                         }
-                    }
                 }
                 Button {
                     text: "2"
@@ -146,13 +123,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_2
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                         entry.text += b_2.text
                         }
-                    }
                 }
                 Button {
                     text: "."
@@ -160,13 +133,10 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_dot
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_dot.text
                         }
-                    }
+                    
                 }
             }
             Column {
@@ -180,13 +150,10 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_9
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_9.text
                         }
-                    }
+                    
                 }
                 Button {
                     text: "6"
@@ -194,13 +161,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_6
-                        anchors.fill: parent
-                        onPressed: {
-                            entry.text += b_6.text
-                        }
-                    }
+                    onClicked: entry.text += b_6.text
+                        
+                    
                 }
                 Button {
                     text: "3"
@@ -208,13 +171,7 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_3
-                        anchors.fill: parent
-                        onPressed: {
-                        entry.text += b_3.text
-                        }
-                    }
+                    onClicked: entry.text += b_3.text
                 }
                 Button {
                     text: "="
@@ -222,13 +179,7 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_gob
-                        anchors.fill: parent
-                        onPressed: {
-                            result.text = Script.Evaluer(entry.text)
-                        }
-                    }
+                    onClicked:result.text = Script.Evaluer(entry.text)
                 }
             }
             Column {
@@ -242,13 +193,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_X
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                         entry.text += entry.varx
                         }
-                    }
                 }
                 Button {
                     text: "->X"
@@ -256,14 +203,10 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_attrX
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             result.text = Script.Evaluer(entry.text)
                            	entry.varx = result.text
                         }
-                    }
                 }
                 Button {
                     text: "("
@@ -271,13 +214,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: m_parleft
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_parleft.text
                         }
-                    }
                 }
                 Button {
                     text: ")"
@@ -285,13 +224,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_parright
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_parright.text
                         }
-                    }
                 }
             }
         }
@@ -316,13 +251,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_plus
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_plus.text
                         }
-                    }
                 }
                 Button {
                     text: "-"
@@ -330,13 +261,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_minus
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_minus.text
                         }
-                    }
                 }
                 Button {
                     text: "×"
@@ -344,13 +271,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_cross
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += '*'
                         }
-                    }
                 }
                 Button {
                     text: "÷"
@@ -358,13 +281,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_div
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += '/'
                         }
-                    }
                 }
             }
         }
@@ -386,13 +305,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_sqrt
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += 'sqrt('
                         }
-                    }     
                 }
                 Button {
                     text: "cos"
@@ -400,13 +315,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_cos
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += 'cos('
                         }
-                    }
                 }
                 Button {
                     text: "acos"
@@ -428,13 +339,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_exp
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += 'exp('
                         }
-                    }
                 }
                     
             }
@@ -449,13 +356,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_pow
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += 'pow('
                         }
-                    }
                 }
                 Button {
                     text: "sin"
@@ -463,13 +366,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_sin
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += 'sin('
                         }
-                    }
                 }
                 Button {
                     text: "asin"
@@ -477,13 +376,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_asin
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += 'asin('
                         }
-                    }
                 }
                 Button {
                     text: "ln"
@@ -491,13 +386,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_ln
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += 'ln('
                         }
-                    }
                 }
             }
             Column {
@@ -511,13 +402,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_com
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += b_coma.text
                         }
-                    }
                 }
                 Button {
                     text: "tan"
@@ -525,13 +412,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_tan
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += 'tan('
  1                        }
-                    }
                 }
                 Button {
                     text: "atan"
@@ -539,13 +422,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: "white"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_atan
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += 'atan('
                         }
-                    }
                 }
                 Button {        
                     text: 'π'
@@ -553,13 +432,9 @@ ApplicationWindow {
                     width: units.dp(50)
                     textColor: 'white'
                     anchors.horizontalCenter: parent.horizontalCenter
-                    MouseArea {
-                        id: ma_pi
-                        anchors.fill: parent
-                        onPressed: {
+                    onClicked: {
                             entry.text += 'pi'
                         }
-                    }
                 }
                     
             }
@@ -763,33 +638,24 @@ ApplicationWindow {
                     backgroundColor: Theme.accentColor
                     elevation: 1
                     x:30
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
+                    onClicked: {
                             drawer.x = 329
                             shadow_drawer.opacity = 0
-                        }
-                        onPressed: {
                             calculator.accentchosen = accentcolor_sample.color
-                            calculator.bigsize = sw_bigsize.checked        
+                            calculator.bigsize = sw_bigsize.checked   
                         }
-                    }
                 }
                 Button {
                     text: "Abort"
                     x:103
                     elevation: 1
                     textColor: Theme.accentColor
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
+                    onClicked: {
                             drawer.x = 329
                             shadow_drawer.opacity = 0
-                        }
-                        onPressed: {
                             sw_bigsize.checked = calculator.bigsize
+                            accentcolor_sample.color = calculator.accentchosen
                         }
-                    }
                 }
             }
         }
