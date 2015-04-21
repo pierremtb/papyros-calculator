@@ -727,8 +727,9 @@ Dialog {
 
         Grid {
             anchors.topMargin:15
-            columns: 7
-            spacing: units.dp(8)
+            anchors.leftMargin:10
+            columns: bigsize ? 7 : 6
+            spacing: bigsize ? units.dp(8) : units.dp(6)
 
             Repeater {
                 model: [

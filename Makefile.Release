@@ -17,13 +17,13 @@ CXXFLAGS      = -pipe -fno-keep-inline-dllexport -O2 -frtti -Wall -Wextra -fexce
 INCPATH       = -I'.' -I'C:/Qt/5.4/mingw491_32/include' -I'C:/Qt/5.4/mingw491_32/include/QtQuick' -I'C:/Qt/5.4/mingw491_32/include/QtWidgets' -I'C:/Qt/5.4/mingw491_32/include/QtGui' -I'C:/Qt/5.4/mingw491_32/include/QtQml' -I'C:/Qt/5.4/mingw491_32/include/QtNetwork' -I'C:/Qt/5.4/mingw491_32/include/QtCore' -I'release' -I'C:/Qt/5.4/mingw491_32/mkspecs/win32-g++' 
 LINKER      =        g++
 LFLAGS        =        -Wl,-s -Wl,-subsystem,windows -mthreads
-LIBS        =        -lglu32 -lopengl32 -lgdi32 -luser32 -lmingw32 -LC:/Qt/5.4/mingw491_32/lib -lqtmain -LC:\mingw491\mingw32\lib -LC:\Utils\icu32_53_1_mingw482\lib -LC:\utils\postgresql\pgsql\lib -LC:\utils\mysql\mysql\lib -LC:\opensll\lib -lshell32 -LC:\Qt\5.4\mingw491_32/lib -lQt5Quick -lQt5Widgets -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core 
+LIBS        =        -lglu32 -lopengl32 -lgdi32 -luser32 -lmingw32 -LC:/Qt/5.4/mingw491_32/lib -lqtmain -LC:\mingw491\mingw32\lib -LC:\Utils\icu32_53_1_mingw482\lib -LC:\utils\postgresql\pgsql\lib -LC:\utils\mysql\mysql\lib -LC:\opensll\lib -lshell32 -LC:\Qt\5.4\mingw491_32/lib -lQt5Quick -lQt5Widgets -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core C:/Users/Pierre/Documents/GitHub/papyros-calculator/release/papyros-calculator_resource_res.o 
 QMAKE         = C:/Qt/5.4/mingw491_32/bin/qmake.exe
 IDC           = idc
 IDL           = midl
 ZIP           = 
 DEF_FILE      = 
-RES_FILE      = 
+RES_FILE      = C:/Users/Pierre/Documents/GitHub/papyros-calculator/release/papyros-calculator_resource_res.o
 COPY          = cp -f
 SED           = sed
 COPY_FILE     = cp -f
@@ -74,8 +74,11 @@ DESTDIR_TARGET = release/papyros-calculator.exe
 first: all
 all: Makefile.Release  $(DESTDIR_TARGET)
 
-$(DESTDIR_TARGET):  $(OBJECTS) 
+$(DESTDIR_TARGET):  $(OBJECTS) C:/Users/Pierre/Documents/GitHub/papyros-calculator/release/papyros-calculator_resource_res.o
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) $(OBJECTS)  $(LIBS)
+
+C:/Users/Pierre/Documents/GitHub/papyros-calculator/release/papyros-calculator_resource_res.o: papyros-calculator_resource.rc
+	windres -i papyros-calculator_resource.rc -o C:/Users/Pierre/Documents/GitHub/papyros-calculator/release/papyros-calculator_resource_res.o --include-dir=. $(DEFINES)
 
 qmake: FORCE
 	@$(QMAKE) -o Makefile.Release papyros-calculator.pro
@@ -87,6 +90,7 @@ dist:
 
 clean: compiler_clean 
 	-$(DEL_FILE) release/main.o release/qrc_papyros-calculator.o
+	-$(DEL_FILE) C:/Users/Pierre/Documents/GitHub/papyros-calculator/release/papyros-calculator_resource_res.o
 
 distclean: clean 
 	-$(DEL_FILE) $(DESTDIR_TARGET)
