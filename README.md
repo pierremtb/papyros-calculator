@@ -10,4 +10,5 @@ How to build
 - ./papyros-calculator
 
 ![alt tag](https://raw.githubusercontent.com/PierreJacquier/papyros-calculator/master/papyros-calculator.png)
+![alt tag](https://raw.githubusercontent.com/PierreJacquier/papyros-calculator/master/papyros-calculator-windows.png)
 
