@@ -9,7 +9,7 @@ ApplicationWindow {
     id: calculator
     visible: true
     title: 'Calculator'
-    flags: Qt.WindowCloseButtonHint|Qt.WindowMinimizeButtonHint
+    flags: Qt.WindowCloseButtonHint|Qt.WindowMinimizeButtonHint|Qt.FramelessWindowHint
     property bool bigsize: true
     property string accentchosen: "#009688"
     width: bigsize ? 329 : 210
@@ -27,9 +27,39 @@ ApplicationWindow {
         property alias bigsize: calculator.bigsize
     }
     initialPage: ee  
+    Rectangle {
+        width:bigsize ? 329 : 210
+        height:30
+        color:'lightgray'
+        MouseArea {
+            anchors.fill: parent
+            property real lastMouseX: 0
+            property real lastMouseY: 0
+            onPressed: {
+                lastMouseX = mouseX
+                lastMouseY = mouseY
+            }
+            onMouseXChanged: calculator.x += (mouseX - lastMouseX)
+            onMouseYChanged: calculator.y += (mouseY - lastMouseY)
+    }
+    Icon {
+            id:close_w
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.margins:5
+            name: "navigation/close"
+            MouseArea {
+                id: ma_menu___
+                anchors.fill: parent
+                onClicked: Qt.quit()
+            }
+        }
+    }
     Page {
         id: ee
         actionBar.hidden: true
+        y:30
+        anchors.topMargin: 20
         Component.onCompleted:
         {
         entry.forceActiveFocus()
@@ -457,7 +487,7 @@ ApplicationWindow {
                 Behavior on opacity {
                     NumberAnimation { duration: 200 }
                 }
-                middleSize:calculator.width * 4
+              /*  middleSize:calculator.width * 4*/
                 Connections {
                     target: elev
                     onPressed: console.log(" ")
@@ -563,6 +593,7 @@ ApplicationWindow {
         color:'white'
         width:200
         x:329
+        y:30
         z:2
         Behavior on x {
             NumberAnimation { duration: 200 }
@@ -671,6 +702,8 @@ ApplicationWindow {
             NumberAnimation { duration: 200 }
         }
     }
+
+
 }
 
 

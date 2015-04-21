@@ -1,8 +1,6 @@
 import QtQuick 2.2
 import Material 0.1
 import Material.ListItems 0.1 as ListItem
-import Material.WebApps 0.1
-import QtWebEngine 1.0
 import Qt.labs.settings 1.0
 
 Dropdown {
