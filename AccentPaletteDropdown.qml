@@ -6,6 +6,7 @@ import Qt.labs.settings 1.0
 Dropdown {
                 id:accent_chooser_palette
                 width: units.dp(200)
+             
                 height: units.dp(200)
                 ListItem.Header {
                     text: "Palette"

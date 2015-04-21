@@ -17,3 +17,4 @@ desktop.path = /usr/share/applications
 INSTALLS += target desktop
 
 
+RC_ICONS = papyros-calculator.ico

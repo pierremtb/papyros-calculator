@@ -9,9 +9,10 @@ ApplicationWindow {
     id: calculator
     visible: true
     title: 'Calculator'
-    flags: Qt.WindowCloseButtonHint|Qt.WindowMinimizeButtonHint|Qt.FramelessWindowHint
+    flags: Qt.WindowCloseButtonHint|Qt.WindowMinimizeButtonHint|Qt.FramelessWindowHint|Qt.Window|Qt.WindowSystemMenuHint
     property bool bigsize: true
     property string accentchosen: "#009688"
+
     width: bigsize ? 329 : 210
     height:bigsize ? 268 : 253
     maximumHeight: bigsize ? 268 : 253
@@ -41,6 +42,14 @@ ApplicationWindow {
             }
             onMouseXChanged: calculator.x += (mouseX - lastMouseX)
             onMouseYChanged: calculator.y += (mouseY - lastMouseY)
+        }
+    Text {
+        id:w_title
+        anchors.horizontalCenter: parent.horizontalCenter
+        text:'Calculator'
+        font.pointSize:12
+        y:5
+        color:'gray'
     }
     Icon {
             id:close_w
@@ -533,9 +542,11 @@ ApplicationWindow {
             id:del
             visible: entry.text=='' ? false : true
             anchors.top: parent.top
+            width:18
+            height:width
       		anchors.right: parent.right
        		anchors.margins:5
-            anchors.rightMargin:30
+            anchors.rightMargin:25
             name: "navigation/arrow_back"
             MouseArea {
                  Timer {
@@ -574,6 +585,8 @@ ApplicationWindow {
             anchors.top: parent.top
             anchors.right: parent.right
             anchors.margins:5
+            width:18
+            height:width
             name: "navigation/menu"
             MouseArea {
                 id: ma_menu
@@ -593,7 +606,7 @@ ApplicationWindow {
         color:'white'
         width:200
         x:329
-        y:30
+        anchors.topMargin:30
         z:2
         Behavior on x {
             NumberAnimation { duration: 200 }
@@ -619,6 +632,10 @@ ApplicationWindow {
                         id:sw_bigsize
                         checked: calculator.bigsize
                         darkBackground: false
+                        onClicked: {
+                             calculator.bigsize = sw_bigsize.checked 
+                             drawer.x = calculator.bigsize ? 129 : 10;
+                        }
                         anchors {
                             top: parent.top
                             right: parent.right
@@ -629,10 +646,15 @@ ApplicationWindow {
                 }
                 ListItem.Standard {
                     id:themechooser
-                    text: 'Accent Chooser'
+                    text: 'Select AccentColor'
                     MouseArea {
                         anchors.fill: parent
-                        onPressed: accent_chooser_palette.open(accentcolor_sample, units.dp(4), units.dp(-24))
+                       /* onPressed: accent_chooser_palette.open(accentcolor_sample, units.dp(4), units.dp(-24))*/
+                       onClicked: {
+                       colorPicker.show();
+                        drawer.x = 329;
+                        shadow_drawer.opacity = 0;
+                       }
                     }
                     Rectangle {
                         width:30
@@ -648,12 +670,12 @@ ApplicationWindow {
                         }
                         MouseArea {
                         anchors.fill: parent
-                        onPressed: accent_chooser_palette.open(accentcolor_sample, units.dp(4), units.dp(-24))
                     }
                     }
                 }
                 AccentPaletteDropdown {
                 id:accent_chooser_palette
+                
            }
             }
             Item {           
@@ -661,31 +683,17 @@ ApplicationWindow {
                     bottom: parent.bottom
                     left: parent.left
                     right: parent.right
-                    bottomMargin:25
+                    bottomMargin:5
                 }
                 height:30
                 Button {
-                    text: "Save"
-                    backgroundColor: Theme.accentColor
-                    elevation: 1
-                    x:30
-                    onClicked: {
-                            drawer.x = 329
-                            shadow_drawer.opacity = 0
-                            calculator.accentchosen = accentcolor_sample.color
-                            calculator.bigsize = sw_bigsize.checked   
-                        }
-                }
-                Button {
-                    text: "Abort"
-                    x:103
-                    elevation: 1
+                    text: "Done"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    elevation: 0
                     textColor: Theme.accentColor
                     onClicked: {
                             drawer.x = 329
                             shadow_drawer.opacity = 0
-                            sw_bigsize.checked = calculator.bigsize
-                            accentcolor_sample.color = calculator.accentchosen
                         }
                 }
             }
@@ -695,11 +703,64 @@ ApplicationWindow {
         id: shadow_drawer
         width:calculator.width
         height:calculator.height
+        y:30
         color: Qt.rgba(0.1, 0.1, 0.1, 0.5)
         opacity: 0
         z:1
         Behavior on opacity {
             NumberAnimation { duration: 200 }
+        }
+    }
+
+Dialog {
+        id: colorPicker
+        property string old_accentColor:theme.accentColor
+        title: "Pick color"
+        y:10
+        positiveButtonText: "Done"
+        negativeButtonText: ""
+        /*MenuField {
+            id: selection
+            model: ["Primary color", "Accent color", "Background color"]
+            width: units.dp(160)
+        }*/
+
+        Grid {
+            anchors.topMargin:15
+            columns: 7
+            spacing: units.dp(8)
+
+            Repeater {
+                model: [
+                    "red", "pink", "purple", "deepPurple", "indigo",
+                    "blue", "lightBlue", "cyan", "teal", "green",
+                    "lightGreen", "lime", "yellow", "amber", "orange",
+                    "deepOrange", "grey", "blueGrey", "brown", "black",
+                    "white"
+                ]
+
+                Rectangle {
+                    width: units.dp(30)
+                    height: units.dp(30)
+                    radius: units.dp(2)
+                    color: Palette.colors[modelData]["500"]
+                    border.width: modelData === "white" ? units.dp(2) : 0
+                    border.color: Theme.alpha("#000", 0.26)
+                    Ink {
+                        anchors.fill: parent
+
+                        onPressed: {
+                                theme.accentColor = parent.color
+                                entry.forceActiveFocus()
+                            }
+                        }
+                    }
+                }
+            }
+        
+        
+        onRejected: {
+            theme.accentColor = colorPicker.old_accentColor
         }
     }
 
