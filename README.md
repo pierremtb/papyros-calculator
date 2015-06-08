@@ -1,4 +1,4 @@
-# papyros-calculator
+# Papyros Calculator
 Calculator application for Papyros, written in QML/JavaScript
 
 How to install:
