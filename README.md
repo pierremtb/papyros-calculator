@@ -3,9 +3,9 @@ Calculator application for Papyros, written in QML/JavaScript
 
 How to install:
 * WINDOWS
-  - Just download and install : 
+  - Just download and install : https://raw.githubusercontent.com/pierremtb/papyros-calculator/master/papyros-calculator-0.1-setup.exe
 
-*LINUX
+* LINUX
   - Be sure you have set up qt5 and dependencies, qml-extras, qml-material (see https://github.com/papyros/qml-material)
   - $ git clone https://github.com/pierremtb/papyros-calculator
   - $ cd papyros-calculator
