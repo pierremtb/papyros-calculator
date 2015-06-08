@@ -10,7 +10,7 @@ ApplicationWindow {
     visible: true
     title: 'Calculator'
     property bool bigsize: true
-    property string accentchosen: "#009688"
+    property string accentchosen: "#E91E63"
     maximumHeight: Units.dp(270)
     minimumHeight: Units.dp(270)
     maximumWidth: bigsize ? Units.dp(400) : Units.dp(247)
@@ -83,7 +83,7 @@ ApplicationWindow {
             }
             Icon {
                 id:del
-                visible: entry.text=='' ? false : true
+                visible: entry.text=='' ? false : true
                 anchors.top: parent.top
                 width:18
                 height:width
@@ -119,6 +119,13 @@ ApplicationWindow {
                         mouseArea.createTapCircle(calculator.width,0);
                         timer1.running = true;
                         timer2.running = true;
+                    }
+                    onPressAndHold :{
+                      mouseArea.opacity = 1;
+                      mouseArea.color = Theme.accentColor;
+                      mouseArea.createTapCircle(calculator.width,0);
+                      timer1.running = true;
+                      timer2.running = true;
                     }
 
                 }
@@ -582,7 +589,7 @@ ApplicationWindow {
                         id:themechooser
                         text: 'Select AccentColor'
                         MouseArea {
-                            anchors.fill: parent
+                            anchors.fill: parent
                             onClicked: {
                                 colorPicker.show();
                                 drawer.close();
@@ -613,11 +620,13 @@ ApplicationWindow {
             {
               drawer.x = bigsize ? Units.dp(170) : Units.dp(17);
               shadow_drawer.opacity = 1;
+              calculator.x +=1;
             }
             function close()
             {
               drawer.x = bigsize ? Units.dp(400) : Units.dp(247);
               shadow_drawer.opacity = 0;
+               calculator.x +=1;
             }
         }
         Dialog {
@@ -630,7 +639,7 @@ ApplicationWindow {
             Grid {
                 anchors.topMargin: Units.dp(20)
                 anchors.leftMargin: Units.dp(10)
-                columns: bigsize ? 7 : 6
+                columns: bigsize ? 7 : 6
                 spacing: bigsize ? Units.dp(8) : Units.dp(6)
                 Repeater {
                     model: [
