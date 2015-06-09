@@ -1,6 +1,7 @@
 /*
-* System Settings - Settings app for Papyros
-* Copyright (C) 2015 Michael Spencer
+* Papyros Calculator - A calculator application for Papyros
+* Copyright (C) 2015 Pierre Jacquier
+* http://pierre-jacquier.com
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -15,6 +16,7 @@
 * You should have received a copy of the GNU General Public License
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include <QApplication>
 #include <QQmlApplicationEngine>
 

@@ -1,3 +1,22 @@
+/*
+* Papyros Calculator - A calculator application for Papyros
+* Copyright (C) 2015 Pierre Jacquier
+* http://pierre-jacquier.com/
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 import QtQuick 2.2
 import Material 0.1
 import Material.ListItems 0.1 as ListItem
@@ -54,7 +73,7 @@ ApplicationWindow {
                     property string varx:''
                     selectByMouse: true
                     selectionColor : 'lightgray'
-                    width:bigsize == true ? calculator.width - Units.dp(60) : 150
+                    width: calculator.width - Units.dp(60)
                     anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.margins: Units.dp(8)
@@ -70,8 +89,7 @@ ApplicationWindow {
                     id:result
                     anchors.bottom: parent.bottom
                     anchors.right: parent.right
-                    anchors.margins: 6
-                    anchors.bottomMargin: 10
+                    anchors.margins: Units.dp(8)
                     text:' '
                     color:'#212121'
                     Behavior on font.pointSize {
@@ -85,11 +103,11 @@ ApplicationWindow {
                 id:del
                 visible: entry.text=='' ? false : true
                 anchors.top: parent.top
-                width:18
+                width: Units.dp(20)
                 height:width
           		anchors.right: parent.right
-           		anchors.margins:5
-                anchors.rightMargin:25
+           		anchors.margins: Units.dp(5)
+                anchors.rightMargin: Units.dp(30)
                 name: "navigation/arrow_back"
                 MouseArea {
                      Timer {
@@ -134,8 +152,8 @@ ApplicationWindow {
                 id:menu
                 anchors.top: parent.top
                 anchors.right: parent.right
-                anchors.margins:5
-                width:18
+                anchors.margins: Units.dp(5)
+                width: Units.dp(20)
                 height:width
                 name: "navigation/menu"
                 MouseArea {
@@ -155,7 +173,7 @@ ApplicationWindow {
             z:2
             width: Units.dp(150)
             height: Units.dp(151)
-            color: /*Theme.accentColor*/ calculator.accentchosen
+            color: calculator.accentchosen
             Row {
                 Column {
                     width: Units.dp(50)
@@ -577,10 +595,9 @@ ApplicationWindow {
                                  drawer.close()
                             }
                             anchors {
-                                top: parent.top
                                 right: parent.right
-                                topMargin:10
-                                rightMargin:20
+                                rightMargin:Units.dp(20)
+                                verticalCenter:parent.verticalCenter
                             }
                         }
                     }
@@ -620,13 +637,13 @@ ApplicationWindow {
             {
               drawer.x = bigsize ? Units.dp(170) : Units.dp(17);
               shadow_drawer.opacity = 1;
-              calculator.x +=1;
+              calculator.x += 1;
             }
             function close()
             {
               drawer.x = bigsize ? Units.dp(400) : Units.dp(247);
               shadow_drawer.opacity = 0;
-               calculator.x +=1;
+               calculator.x += 1;
             }
         }
         Dialog {
