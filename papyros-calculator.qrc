@@ -3,9 +3,9 @@
 
 <qresource>
 	<file>main.qml</file>
+	<file>CalculatorButton.qml</file>
 	<file>script.js</file>
 	<file>papyros-calculator.desktop</file>
 </qresource>
 
 </RCC>
-

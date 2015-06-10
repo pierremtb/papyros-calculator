@@ -34,7 +34,7 @@ ApplicationWindow {
     property string accentchosen: "#E91E63"
     property var history: []
     property var history_pos: history.length - 1
-    height: Units.dp(270)
+    height: Units.dp(300)
     minimumHeight:  Units.dp(200)
     width: bigsize ? Units.dp(400) : Units.dp(247)
     minimumWidth: bigsize ? Units.dp(400) : Units.dp(247)
@@ -58,7 +58,7 @@ ApplicationWindow {
         Item {
             id:tr
             width: parent.width
-            height: calculator.height * 0.45
+            height: calculator.height * 0.4
             Keys.onReturnPressed: {
               if(entry.text != history[history.length - 1])
               {
@@ -103,7 +103,9 @@ ApplicationWindow {
                     id:entry
                     property string varx:''
                     selectByMouse: true
-                    selectionColor : 'lightgray'
+                    selectionColor: accentchosen
+                    selectedTextColor: "white"
+                    wrapMode: TextInput.WrapAnywhere
                     width: calculator.width - Units.dp(60)
                     anchors.left: parent.left
                     anchors.top: parent.top
@@ -130,7 +132,7 @@ ApplicationWindow {
                     Behavior on font.pointSize {
                        NumberAnimation { duration: 200 }
                    }
-                    font.pointSize: bigsize && result.text.length > 15 ? Units.dp(18) : bigsize && result.text.length > 10 ? Units.dp(25) : bigsize ? Units.dp(29) : !bigsize && result.text.length > 15 ? Units.dp(12) :  !bigsize && result.text.length > 10 ? Units.dp(17) : Units.dp(25)
+                    font.pointSize: getResultGoodFontSize()
                 }
             }
             }
@@ -219,150 +221,20 @@ ApplicationWindow {
             y:tr.height
             z:2
             width: bigsize ? calculator.width * 3 / 8 : Units.dp(150)
-            height:  calculator.height * 0.55
+            height:  calculator.height * 0.60
             color: calculator.accentchosen
-            Row {
-                Column {
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    Button {
-                        text: "√"
-                        id:b_sqrt
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'sqrt('
-                        }
-                    }
-                    Button {
-                        text: "cos"
-                        id:b_cos
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'cos('
-                        }
-                    }
-                    Button {
-                        text: "acos"
-                        id:b_acos
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'acos('
-                        }
-                    }
-                    Button {
-                        text: "exp"
-                        id:b_exp
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'exp('
-                        }
-                    }
-
-                }
-                Column {
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    Button {
-                        text: "^"
-                        id:b_pow
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'pow('
-                        }
-                    }
-                    Button {
-                        text: "sin"
-                        id:b_sin
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'sin('
-                        }
-                    }
-                    Button {
-                        text: "asin"
-                        id:b_asin
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'asin('
-                        }
-                    }
-                    Button {
-                        text: "ln"
-                        id:b_ln
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'ln('
-                        }
-                    }
-                }
-                Column {
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    Button {
-                        text: ","
-                        id:b_coma
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_coma.text
-                        }
-                    }
-                    Button {
-                        text: "tan"
-                        id:b_tan
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'tan('
-                        }
-                    }
-                    Button {
-                        text: "atan"
-                        id:b_atan
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'atan('
-                        }
-                    }
-                    Button {
-                        text: 'π'
-                        id:b_pi
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: 'white'
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += 'pi'
-                            result.text = Script.Evaluer(entry.text)
-                        }
+            Grid {
+                id:fns
+                columns:3
+                rows:4
+                property var labels: ["√","^",",","cos","sin","tan","acos","asin","atan","exp","ln","pi"]
+                property var targets: ["sqrt(","pow(",",","cos(","sin(","tan(","acos(","asin(","atan(","exp(","ln(","pi"]
+                Repeater {
+                    model: fns.labels
+                    CalculatorButton {
+                        label: modelData
+                        target: fns.targets[index]
+                        fontSize:getButtonsGoodFontSize()-3
                     }
                 }
             }
@@ -372,196 +244,20 @@ ApplicationWindow {
             x: bigsize ? fn.width : 0
             y: tr.height
             width: bigsize ? calculator.width * 4 / 8 : Units.dp(200)
-            height:  calculator.height * 0.55
+            height:  calculator.height * 0.6
             color: "#444345"
-            Row {
-                Column {
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    Button {
-                        text: "7"
-                        id:b_7
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        textColor: "white"
-                        height: fn.height / 4
-                        onClicked: {
-                            entry.text += b_7.text
-                        }
-                    }
-                    Button {
-                        text: "4"
-                        id:b_4
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_4.text
-                        }
-                    }
-                    Button {
-                        text: "1"
-                        id:b_1
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_1.text
-                        }
-                    }
-                    Button {
-                        text: "0"
-                        id:b_0
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_0.text
-                        }
-                    }
-                }
-                Column {
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    Button {
-                        text: "8"
-                        id:b_8
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_8.text
-                        }
-                    }
-                    Button {
-                        text: "5"
-                        id:b_5
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_5.text
-                        }
-                    }
-                    Button {
-                        text: "2"
-                        id:b_2
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_2.text
-                        }
-                    }
-                    Button {
-                        text: "."
-                        id:b_dot
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_dot.text
-                        }
-
-                    }
-                }
-                Column {
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    Button {
-                        text: "9"
-                        id:b_9
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_9.text
-                        }
-                    }
-                    Button {
-                        text: "6"
-                        id:b_6
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_6.text
-                        }
-                    }
-                    Button {
-                        text: "3"
-                        id:b_3
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_3.text
-                        }
-                    }
-                    Button {
-                        text: "="
-                        id:b_go
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked:result.text = Script.Evaluer(entry.text)
-                    }
-                }
-                Column {
-                    id: other
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    Button {
-                        text: "X"
-                        id:b_X
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += entry.varx
-                        }
-                    }
-                    Button {
-                        text: "->X"
-                        id:b_attrX
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            result.text = Script.Evaluer(entry.text)
-                           	entry.varx = result.text
-                        }
-                    }
-                    Button {
-                        text: "("
-                        id:b_parleft
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_parleft.text
-                        }
-                    }
-                    Button {
-                        text: ")"
-                        id:b_parright
-                        width: bigsize ? calculator.width / 8 : Units.dp(50)
-                        textColor: "white"
-                        height: fn.height / 4
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            entry.text += b_parright.text
-                        }
+            Grid {
+                id:nums
+                columns:4
+                rows:4
+                property var labels: ["7","8","9","X","4","5","6",">X","1","2","3","(","0",".","=",")"]
+                property var targets: ["7","8","9","X","4","5","6",">X","1","2","3","(","0",".","=",")"]
+                Repeater {
+                    model: nums.labels
+                    CalculatorButton {
+                        label: modelData
+                        target: nums.targets[index]
+                        fontSize:getButtonsGoodFontSize()
                     }
                 }
             }
@@ -571,53 +267,18 @@ ApplicationWindow {
             x:bigsize ? fn.width + num.width : fn.width + other.width
             y:tr.height
             width: bigsize ? calculator.width / 8 : Units.dp(50)
-            height:  calculator.height * 0.55
+            height:  calculator.height * 0.6
             color: "#646264"
             Column {
-                width: bigsize ? calculator.width / 8 : Units.dp(50)
-                height: Units.dp(151)
-                Button {
-                    text: "+"
-                    id:b_plus
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    textColor: "white"
-                    height: fn.height / 4
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        entry.text += b_plus.text
-                    }
-                }
-                Button {
-                    text: "-"
-                    id:b_minus
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    textColor: "white"
-                    height: fn.height / 4
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        entry.text += b_minus.text
-                    }
-                }
-                Button {
-                    text: "×"
-                    id:b_cross
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    textColor: "white"
-                    height: fn.height / 4
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        entry.text += '*'
-                    }
-                }
-                Button {
-                    text: "÷"
-                    id:b_div
-                    width: bigsize ? calculator.width / 8 : Units.dp(50)
-                    textColor: "white"
-                    height: fn.height / 4
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        entry.text += '/'
+                id:signss
+                property var labels: ["+","-","*","/"]
+                property var targets: ["+","-","*","/"]
+                Repeater {
+                    model: signss.labels
+                    CalculatorButton {
+                        label: modelData
+                        target: signss.targets[index]
+                        fontSize:getButtonsGoodFontSize()
                     }
                 }
             }
@@ -651,6 +312,8 @@ ApplicationWindow {
                         darkBackground: false
                         onCheckedChanged: {
                              calculator.bigsize = sw_bigsize.checked
+                             signs.x = bigsize ? fn.width + num.width : fn.width + Units.dp(50)
+                             calculator.width = bigsize ? Units.dp(400) : Units.dp(247)
                              drawer.close()
                         }
                         anchors {
@@ -753,6 +416,67 @@ ApplicationWindow {
             onRejected: {
                 accentchosen = colorPicker.old_accentColor
             }
+        }
+    }
+    function getButtonsGoodFontSize()
+    {
+        if(calculator.width > Units.dp(800) && calculator.height > Units.dp(600))
+            return 35;
+        else if(calculator.width > Units.dp(700) && calculator.height > Units.dp(500))
+            return 31;
+        else if(calculator.width > Units.dp(600) && calculator.height > Units.dp(300))
+            return 27;
+        else if(calculator.width > Units.dp(500))
+            return 23;
+        else if(calculator.width > Units.dp(370))
+            return 19;
+        else
+            return 15;
+    }
+
+    function getResultGoodFontSize()
+    {
+      if(calculator.width > Units.dp(800) && calculator.height > Units.dp(600))
+      {
+        if(result.text.length > 15)
+            return Units.dp(57);
+        else if(result.text.length > 10)
+            return Units.dp(60);
+        else
+            return Units.dp(80);
+      }
+      else if(calculator.width > Units.dp(700) && calculator.height > Units.dp(400))
+      {
+        if(result.text.length > 15)
+            return Units.dp(47);
+        else if(result.text.length > 10)
+            return Units.dp(50);
+        else
+            return Units.dp(70);
+      }
+      else if(calculator.width > Units.dp(600) && calculator.height > Units.dp(300))
+      {
+        if(result.text.length > 15)
+            return Units.dp(35);
+        else if(result.text.length > 10)
+            return Units.dp(40);
+        else
+            return Units.dp(50);
+      }
+      else
+      {
+        if(bigsize && result.text.length > 15)
+            return Units.dp(18);
+        else if(bigsize && result.text.length > 10)
+            return Units.dp(25);
+        else if(bigsize)
+            return Units.dp(29);
+        else if(!bigsize && result.text.length > 15)
+            return Units.dp(12);
+        else if(!bigsize && result.text.length > 10 )
+            return Units.dp(17)
+        else
+            return Units.dp(25)
         }
     }
 }
