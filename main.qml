@@ -28,12 +28,17 @@ ApplicationWindow {
     id: calculator
     visible: true
     title: 'Calculator'
+    x:100
+    y:100
     property bool bigsize: true
     property string accentchosen: "#E91E63"
-    maximumHeight: Units.dp(270)
-    minimumHeight: Units.dp(270)
-    maximumWidth: bigsize ? Units.dp(400) : Units.dp(247)
+    property var history: []
+    property var history_pos: history.length - 1
+    height: Units.dp(270)
+    minimumHeight:  Units.dp(200)
+    width: bigsize ? Units.dp(400) : Units.dp(247)
     minimumWidth: bigsize ? Units.dp(400) : Units.dp(247)
+    onWidthChanged: drawer.close()
     theme {
         accentColor: accentchosen
         primaryColor: "#009688"
@@ -41,6 +46,8 @@ ApplicationWindow {
     Settings {
         property alias accentchosen: calculator.accentchosen
         property alias bigsize: calculator.bigsize
+        property alias history: calculator.history
+        property alias history_pos: calculator.history_pos
     }
     initialPage: main
     Page {
@@ -51,10 +58,34 @@ ApplicationWindow {
         Item {
             id:tr
             width: parent.width
-            height: bigsize ? Units.dp(120) : Units.dp(120)
-            Behavior on height { NumberAnimation { duration: 200 } }
-            Keys.onReturnPressed:result.text = Script.Evaluer(entry.text)
-            Keys.onEnterPressed:result.text = Script.Evaluer(entry.text)
+            height: calculator.height * 0.45
+            Keys.onReturnPressed: {
+              if(entry.text != history[history.length - 1])
+              {
+                    history.push(entry.text);
+                    history_pos++;
+              }
+            }
+            Keys.onEnterPressed: {
+              if(entry.text != history[history.length - 1])
+              {
+                    history.push(entry.text);
+                    history_pos++;
+              }
+            }
+            Keys.onUpPressed: {
+                if(history_pos == history.length - 1 && entry.text != history[history.length - 1])
+                {
+                    history.push(entry.text);
+                    history_pos++;
+                }
+                history_pos > 0 ? history_pos-- : history_pos = 0;
+                entry.text = history[history_pos];
+            }
+            Keys.onDownPressed: {
+                history_pos < history.length - 1 ? history_pos++ : history_pos = history.length - 1
+                entry.text = history[history_pos];
+            }
             Ink {
                 id: mouseArea
                 anchors.fill: parent
@@ -77,9 +108,13 @@ ApplicationWindow {
                     anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.margins: Units.dp(8)
-                    text:''
+                    text:history[history_pos]
                     font.pointSize: entry.text.length < 20 ? 18 : 13
-                    onTextChanged:result.text = Script.Evaluer(entry.text)
+                    onTextChanged: {
+                        result.text = Script.Evaluer(entry.text);
+                        console.log(history);
+                        console.log(history_pos);
+                    }
                     color:'#757575'
                     Settings {
                         property alias varx: entry.varx
@@ -127,25 +162,37 @@ ApplicationWindow {
                     }
                      }
                     id: ma_del
+                    acceptedButtons: Qt.LeftButton | Qt.RightButton
                     anchors.fill: parent
-                    onPressed: {
-                         entry.text = entry.text.replace(/(\s+)?.$/, '')
+                    onClicked: {
+                        if(mouse.button & Qt.LeftButton)
+                           entry.text = entry.text.replace(/(\s+)?.$/, '')
+                         if(mouse.button & Qt.RightButton)
+                         {
+                           if(entry.text != history[history.length - 1])
+                           {
+                                 history.push(entry.text);
+                                 history_pos++;
+                           }
+                           mouseArea.opacity = 1;
+                           mouseArea.color = Theme.accentColor;
+                           mouseArea.createTapCircle(calculator.width - Units.dp(50),0);
+                           timer1.running = true;
+                           timer2.running = true;
+                         }
                     }
-                    onDoubleClicked: {
+                    onPressAndHold :{
+                        if(entry.text != history[history.length - 1])
+                        {
+                              history.push(entry.text);
+                              history_pos++;
+                        }
                         mouseArea.opacity = 1;
                         mouseArea.color = Theme.accentColor;
-                        mouseArea.createTapCircle(calculator.width,0);
+                        mouseArea.createTapCircle(calculator.width - Units.dp(50),0);
                         timer1.running = true;
                         timer2.running = true;
                     }
-                    onPressAndHold :{
-                      mouseArea.opacity = 1;
-                      mouseArea.color = Theme.accentColor;
-                      mouseArea.createTapCircle(calculator.width,0);
-                      timer1.running = true;
-                      timer2.running = true;
-                    }
-
                 }
             }
             Icon {
@@ -171,17 +218,18 @@ ApplicationWindow {
             id: fn
             y:tr.height
             z:2
-            width: Units.dp(150)
-            height: Units.dp(151)
+            width: bigsize ? calculator.width * 3 / 8 : Units.dp(150)
+            height:  calculator.height * 0.55
             color: calculator.accentchosen
             Row {
                 Column {
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     Button {
                         text: "√"
                         id:b_sqrt
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'sqrt('
@@ -190,8 +238,9 @@ ApplicationWindow {
                     Button {
                         text: "cos"
                         id:b_cos
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'cos('
@@ -200,8 +249,9 @@ ApplicationWindow {
                     Button {
                         text: "acos"
                         id:b_acos
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'acos('
@@ -210,8 +260,9 @@ ApplicationWindow {
                     Button {
                         text: "exp"
                         id:b_exp
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'exp('
@@ -220,12 +271,13 @@ ApplicationWindow {
 
                 }
                 Column {
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     Button {
                         text: "^"
                         id:b_pow
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'pow('
@@ -234,8 +286,9 @@ ApplicationWindow {
                     Button {
                         text: "sin"
                         id:b_sin
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'sin('
@@ -244,8 +297,9 @@ ApplicationWindow {
                     Button {
                         text: "asin"
                         id:b_asin
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'asin('
@@ -254,8 +308,9 @@ ApplicationWindow {
                     Button {
                         text: "ln"
                         id:b_ln
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'ln('
@@ -263,12 +318,13 @@ ApplicationWindow {
                     }
                 }
                 Column {
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     Button {
                         text: ","
                         id:b_coma
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_coma.text
@@ -277,8 +333,9 @@ ApplicationWindow {
                     Button {
                         text: "tan"
                         id:b_tan
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'tan('
@@ -287,8 +344,9 @@ ApplicationWindow {
                     Button {
                         text: "atan"
                         id:b_atan
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'atan('
@@ -297,8 +355,9 @@ ApplicationWindow {
                     Button {
                         text: 'π'
                         id:b_pi
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: 'white'
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += 'pi'
@@ -311,22 +370,20 @@ ApplicationWindow {
         Rectangle {
             id: num
             x: bigsize ? fn.width : 0
-            Behavior on x {
-                NumberAnimation { duration: 200 }
-            }
             y: tr.height
-            width: Units.dp(200)
-            height: Units.dp(151)
+            width: bigsize ? calculator.width * 4 / 8 : Units.dp(200)
+            height:  calculator.height * 0.55
             color: "#444345"
             Row {
                 Column {
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     Button {
                         text: "7"
                         id:b_7
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         anchors.horizontalCenter: parent.horizontalCenter
                         textColor: "white"
+                        height: fn.height / 4
                         onClicked: {
                             entry.text += b_7.text
                         }
@@ -334,8 +391,9 @@ ApplicationWindow {
                     Button {
                         text: "4"
                         id:b_4
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_4.text
@@ -344,8 +402,9 @@ ApplicationWindow {
                     Button {
                         text: "1"
                         id:b_1
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_1.text
@@ -354,8 +413,9 @@ ApplicationWindow {
                     Button {
                         text: "0"
                         id:b_0
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_0.text
@@ -363,12 +423,13 @@ ApplicationWindow {
                     }
                 }
                 Column {
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     Button {
                         text: "8"
                         id:b_8
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_8.text
@@ -377,8 +438,9 @@ ApplicationWindow {
                     Button {
                         text: "5"
                         id:b_5
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_5.text
@@ -387,8 +449,9 @@ ApplicationWindow {
                     Button {
                         text: "2"
                         id:b_2
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_2.text
@@ -397,8 +460,9 @@ ApplicationWindow {
                     Button {
                         text: "."
                         id:b_dot
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_dot.text
@@ -407,12 +471,13 @@ ApplicationWindow {
                     }
                 }
                 Column {
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     Button {
                         text: "9"
                         id:b_9
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_9.text
@@ -421,8 +486,9 @@ ApplicationWindow {
                     Button {
                         text: "6"
                         id:b_6
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_6.text
@@ -431,8 +497,9 @@ ApplicationWindow {
                     Button {
                         text: "3"
                         id:b_3
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_3.text
@@ -441,20 +508,22 @@ ApplicationWindow {
                     Button {
                         text: "="
                         id:b_go
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked:result.text = Script.Evaluer(entry.text)
                     }
                 }
                 Column {
                     id: other
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     Button {
                         text: "X"
                         id:b_X
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += entry.varx
@@ -463,8 +532,9 @@ ApplicationWindow {
                     Button {
                         text: "->X"
                         id:b_attrX
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             result.text = Script.Evaluer(entry.text)
@@ -474,8 +544,9 @@ ApplicationWindow {
                     Button {
                         text: "("
                         id:b_parleft
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_parleft.text
@@ -484,8 +555,9 @@ ApplicationWindow {
                     Button {
                         text: ")"
                         id:b_parright
-                        width: Units.dp(50)
+                        width: bigsize ? calculator.width / 8 : Units.dp(50)
                         textColor: "white"
+                        height: fn.height / 4
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             entry.text += b_parright.text
@@ -497,21 +569,19 @@ ApplicationWindow {
         Rectangle {
             id: signs
             x:bigsize ? fn.width + num.width : fn.width + other.width
-            Behavior on x {
-                NumberAnimation { duration: 200 }
-            }
             y:tr.height
-            width: Units.dp(50)
-            height: Units.dp(151)
+            width: bigsize ? calculator.width / 8 : Units.dp(50)
+            height:  calculator.height * 0.55
             color: "#646264"
             Column {
-                width: Units.dp(50)
+                width: bigsize ? calculator.width / 8 : Units.dp(50)
                 height: Units.dp(151)
                 Button {
                     text: "+"
                     id:b_plus
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     textColor: "white"
+                    height: fn.height / 4
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: {
                         entry.text += b_plus.text
@@ -520,8 +590,9 @@ ApplicationWindow {
                 Button {
                     text: "-"
                     id:b_minus
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     textColor: "white"
+                    height: fn.height / 4
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: {
                         entry.text += b_minus.text
@@ -530,8 +601,9 @@ ApplicationWindow {
                 Button {
                     text: "×"
                     id:b_cross
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     textColor: "white"
+                    height: fn.height / 4
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: {
                         entry.text += '*'
@@ -540,8 +612,9 @@ ApplicationWindow {
                 Button {
                     text: "÷"
                     id:b_div
-                    width: Units.dp(50)
+                    width: bigsize ? calculator.width / 8 : Units.dp(50)
                     textColor: "white"
+                    height: fn.height / 4
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: {
                         entry.text += '/'
@@ -560,88 +633,82 @@ ApplicationWindow {
                 NumberAnimation { duration: 200 }
             }
         }
-        Rectangle {
+        NavigationDrawer {
             id:drawer
-            color:'white'
             width: Units.dp(230)
-            x: bigsize ? Units.dp(400) : Units.dp(247)
             z:2
-            Behavior on x {
-                NumberAnimation { duration: 200 }
-            }
-            anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-            }
-            View {
-                anchors {
-                    fill: parent
-                    margins: Units.dp(0)
+            mode: "right"
+            Column {
+                anchors.fill: parent
+                ListItem.Subheader {
+                    text: "Settings"
                 }
-                elevation: 1
-                Column {
-                    anchors.fill: parent
-                    ListItem.Subheader {
-                        text: "Settings"
-                    }
-                    ListItem.Standard {
-                        text: "Show numbers"
-                        Switch {
-                            id:sw_bigsize
-                            checked: calculator.bigsize
-                            darkBackground: false
-                            onClicked: {
-                                 calculator.bigsize = sw_bigsize.checked
-                                 drawer.close()
-                            }
-                            anchors {
-                                right: parent.right
-                                rightMargin:Units.dp(20)
-                                verticalCenter:parent.verticalCenter
-                            }
+                ListItem.Standard {
+                    text: "Show numbers"
+                    Switch {
+                        id:sw_bigsize
+                        checked: calculator.bigsize
+                        darkBackground: false
+                        onCheckedChanged: {
+                             calculator.bigsize = sw_bigsize.checked
+                             drawer.close()
                         }
-                    }
-
-                    ListItem.Standard {
-                        id:themechooser
-                        text: 'Select AccentColor'
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                colorPicker.show();
-                                drawer.close();
-                           }
+                        anchors {
+                            right: parent.right
+                            rightMargin:Units.dp(20)
+                            verticalCenter:parent.verticalCenter
                         }
                     }
                 }
-                Item {
-                    anchors {
-                        bottom: parent.bottom
-                        left: parent.left
-                        right: parent.right
-                        bottomMargin: Units.dp(10)
-                    }
-                    height:Units.dp(35)
-                    Button {
-                        text: "Close"
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        elevation: 0
-                        textColor: Theme.accentColor
+                ListItem.Standard {
+                    id:themechooser
+                    text: 'Select AccentColor'
+                    MouseArea {
+                        anchors.fill: parent
                         onClicked: {
-                                drawer.close();
-                        }
+                            colorPicker.show();
+                            drawer.close();
+                       }
+                    }
+                }
+                ListItem.Standard {
+                    text: 'Clear History'
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            history = [];
+                            drawer.close();
+                       }
+                    }
+                }
+            }
+            Item {
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                    bottomMargin: Units.dp(10)
+                }
+                height:Units.dp(35)
+                Button {
+                    text: "Close"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    elevation: 0
+                    textColor: Theme.accentColor
+                    onClicked: {
+                            drawer.close();
                     }
                 }
             }
             function open()
             {
-              drawer.x = bigsize ? Units.dp(170) : Units.dp(17);
+              drawer.showing = true;
               shadow_drawer.opacity = 1;
               calculator.x += 1;
             }
             function close()
             {
-              drawer.x = bigsize ? Units.dp(400) : Units.dp(247);
+              drawer.showing = false;
               shadow_drawer.opacity = 0;
                calculator.x += 1;
             }

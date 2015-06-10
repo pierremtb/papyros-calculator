@@ -8,3 +8,5 @@ debug
 qrc_papyros-calculator.cpp
 papyros-calculator_resource.rc
 papyros-calculator.pro.user
+release/
+debug/
