@@ -21,6 +21,7 @@ import QtQuick 2.2
 import Material 0.1
 import Material.ListItems 0.1 as ListItem
 import "script.js" as Script
+//import "math.js" as MathJS
 import Qt.labs.settings 1.0
 import QtGraphicalEffects 1.0
 
@@ -37,7 +38,7 @@ ApplicationWindow {
     height: Units.dp(300)
     minimumHeight:  Units.dp(200)
     width: bigsize ? Units.dp(400) : Units.dp(247)
-    minimumWidth: bigsize ? Units.dp(400) : Units.dp(247)
+    //minimumWidth: bigsize ? Units.dp(400): Units.dp(247)
     onWidthChanged: drawer.close()
     theme {
         accentColor: accentchosen
@@ -114,6 +115,7 @@ ApplicationWindow {
                     font.pointSize: entry.text.length < 20 ? 18 : 13
                     onTextChanged: {
                         result.text = Script.Evaluer(entry.text);
+                        //result.text = MathJS.eval(entry.text);
                         console.log(history);
                         console.log(history_pos);
                     }
@@ -264,7 +266,7 @@ ApplicationWindow {
         }
         Rectangle {
             id: signs
-            x:bigsize ? fn.width + num.width : fn.width + other.width
+            x:bigsize ? fn.width + num.width : fn.width + Units.dp(50)
             y:tr.height
             width: bigsize ? calculator.width / 8 : Units.dp(50)
             height:  calculator.height * 0.6
@@ -312,8 +314,7 @@ ApplicationWindow {
                         darkBackground: false
                         onCheckedChanged: {
                              calculator.bigsize = sw_bigsize.checked
-                             signs.x = bigsize ? fn.width + num.width : fn.width + Units.dp(50)
-                             calculator.width = bigsize ? Units.dp(400) : Units.dp(247)
+                             //calculator.width = bigsize ? Units.dp(400) : Units.dp(247)
                              drawer.close()
                         }
                         anchors {
