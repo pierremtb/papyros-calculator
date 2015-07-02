@@ -27,7 +27,6 @@ function Evaluer(f) {
 	expr=search(expr,'acos','Math.acos');
 	expr=search(expr,'asin','Math.asin');
 	expr=search(expr,'atan','Math.atan');
-	expr=search(expr,'log','Math.ln');
 	expr=search(expr,'ln','Math.log');
 	expr=search(expr,'exp','Math.exp');
 	expr=search(expr,'pow','Math.pow');
