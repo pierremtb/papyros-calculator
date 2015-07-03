@@ -2,7 +2,7 @@
 Calculator application for Papyros, written in QML/JavaScript
 
 [![License](https://img.shields.io/badge/license-LGPLv3.0%2B-blue.svg)](#)
-[![GitHub release](https://img.shields.io/badge/release-0.2-red.svg)](https://github.com/papyros/calculator-app/releases)
+[![GitHub release](https://img.shields.io/badge/release-0.1.1-red.svg)](https://github.com/papyros/calculator-app/releases)
 
 How to :
 
