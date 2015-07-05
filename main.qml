@@ -291,15 +291,19 @@ ApplicationWindow {
             height:calculator.height
             color: Qt.rgba(0.1, 0.1, 0.1, 0.3)
             opacity: 0
-            z:2
+            z:-10
             Behavior on opacity {
                 NumberAnimation { duration: 200 }
+            }
+            MouseArea {
+              anchors.fill: parent
+              onPressed: drawer.close()
             }
         }
         NavigationDrawer {
             id:drawer
             width: Units.dp(230)
-            z:2
+            z:25
             mode: "right"
             Column {
                 anchors.fill: parent
@@ -368,11 +372,13 @@ ApplicationWindow {
             {
               drawer.showing = true;
               shadow_drawer.opacity = 1;
+              shadow_drawer.z=20;
               calculator.x += 1;
             }
             function close()
             {
               drawer.showing = false;
+              shadow_drawer.z=-10;
               shadow_drawer.opacity = 0;
                calculator.x += 1;
             }
