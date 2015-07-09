@@ -1,12 +1,12 @@
 QT += quick qml
 QT += widgets
 
-SOURCES += main.cpp
+SOURCES += src/main.cpp
 
 OTHER_FILES = README.md
 
-RESOURCES += papyros-calculator.qrc
- 
+RESOURCES += src/papyros-calculator.qrc
+
 CONFIG += staticlib
 
 target.path = /usr/bin
@@ -17,4 +17,4 @@ desktop.path = /usr/share/applications
 INSTALLS += target desktop
 
 
-RC_ICONS = papyros-calculator.ico
+RC_ICONS = other/papyros-calculator.ico

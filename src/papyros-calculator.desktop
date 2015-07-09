@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Name=Papyros Calculator
+Comment=Calculator for Papyros
+Exec=papyros-calculator
+Icon=/usr/share/icons/Numix-Circle/scalable/apps/calc.svg
+Terminal=False
+Type=Application
+Categories=System
+Name[en_US]=Papyros Calculator
+Comment[en_US.utf8]=Calculator for Papyros
+

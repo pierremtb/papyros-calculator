@@ -1,0 +1,11 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+
+<qresource>
+	<file>qml/main.qml</file>
+	<file>qml/CalculatorButton.qml</file>
+	<file>js/script.js</file>
+	<file>papyros-calculator.desktop</file>
+</qresource>
+
+</RCC>
